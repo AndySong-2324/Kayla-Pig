@@ -141,11 +141,10 @@ animation:bounce 1s infinite;
 /* 不是按钮 */
 
 #no{
-
-background:#ffe4ec;
-
-color:#ff4d88;
-
+    background:#ffe4ec;
+    color:#ff4d88;
+    position:absolute; /* 改成绝对定位 */
+    transition: transform 0.2s ease; /* 平滑移动 */
 }
 
 /* 弹跳 */
@@ -334,20 +333,18 @@ document.getElementById("result").style.display="block";
 
 /* 不是按钮 */
 
-no.onclick=function(){
+no.onclick = function(){
+    tip.innerText="不许选这个！";
 
-tip.innerText="不许选这个！";
+    let btnRect = no.getBoundingClientRect();
+    let maxX = window.innerWidth - btnRect.width;
+    let maxY = window.innerHeight - btnRect.height;
 
-let x=Math.random()*(window.innerWidth-100);
+    let x = Math.random() * maxX;
+    let y = Math.random() * maxY;
 
-let y=Math.random()*(window.innerHeight-60);
-
-no.style.position="absolute";
-
-no.style.left=x+"px";
-
-no.style.top=y+"px";
-
+    // 使用 transform 移动，性能更好
+    no.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 
